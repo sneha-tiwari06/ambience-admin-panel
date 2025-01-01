@@ -28,6 +28,7 @@ import Spotlights from "./components/spotlight";
 import AddSpotlight from "./components/add-spotlight";
 import BannerPointers from "./components/bannerPointers";
 import BannerPointerPage from "./components/banner-pointers";
+import CareerQuery from "./query/career-query";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
             <Route path="/spotlights" element={<Spotlights />} />
             <Route path="/add-spotlight" element={<AddSpotlight />} />
             <Route path="/edit-spotlights/:id" element={<AddSpotlight />} />
+            <Route path="/career-query" element={<CareerQuery />} />
           </Route>
         </Routes>
        

@@ -13,6 +13,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 function Sidebar({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
@@ -72,6 +73,11 @@ function Sidebar({ children }) {
       path: "/spotlights",
       name: "Spotlights",
       icon: <LightbulbIcon />,
+    },
+    {
+      path: "/career-query",
+      name: "Query Career",
+      icon: <QueryBuilderIcon />,
     },
     
   ];
