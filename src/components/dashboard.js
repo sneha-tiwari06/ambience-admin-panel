@@ -3,6 +3,7 @@ import axiosInstance from "../utils/axiosInstnace";
 
 function Dashboard() {
   const [totalQueries, setTotalQueries] = useState(0);
+  const [contactQueries, setContactQueries] = useState(0);
 
   useEffect(() => {
     const fetchTotalQueries = async () => {
@@ -16,6 +17,18 @@ function Dashboard() {
 
     fetchTotalQueries();
   }, []);
+  useEffect(() => {
+    const TotalContactQueries= async () => {
+      try {
+        const response = await axiosInstance.get('/contact-us/count');
+        setContactQueries(response.data.count);
+      } catch (error) {
+        console.error('Error fetching total queries:', error);
+      }
+    };
+
+    TotalContactQueries();
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -27,7 +40,7 @@ function Dashboard() {
         </div>       
         <div className="card">
           <h3>Contact Query</h3>
-          <p>Total Queries: {totalQueries}</p>
+          <p>Total Queries: {contactQueries}</p>
         </div>       
       </div>
     </div>

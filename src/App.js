@@ -29,6 +29,7 @@ import AddSpotlight from "./components/add-spotlight";
 import BannerPointers from "./components/bannerPointers";
 import BannerPointerPage from "./components/banner-pointers";
 import CareerQuery from "./query/career-query";
+import ContactQuery from "./query/contact-query";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
             <Route path="/add-spotlight" element={<AddSpotlight />} />
             <Route path="/edit-spotlights/:id" element={<AddSpotlight />} />
             <Route path="/career-query" element={<CareerQuery />} />
+            <Route path="/contact-query" element={<ContactQuery />} />
           </Route>
         </Routes>
        

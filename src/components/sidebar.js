@@ -76,7 +76,12 @@ function Sidebar({ children }) {
     },
     {
       path: "/career-query",
-      name: "Query Career",
+      name: "Career Query",
+      icon: <QueryBuilderIcon />,
+    },
+    {
+      path: "/contact-query",
+      name: "Contact Query",
       icon: <QueryBuilderIcon />,
     },
     

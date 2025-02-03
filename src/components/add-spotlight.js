@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axiosInstance, { BASE_IMAGE_URL } from "../utils/axiosInstnace";
 
 function AddSpotlight() {
-    const [videoUpload, setVideoUpload] = useState(null);
+    const [imageUpload, setImageUpload] = useState(null);
     const [spotlightheading, setSpotlightheading] = useState("");
     const [spotlightcontent, setSpotlightcontent] = useState("");
     const [spotlightPointers, setSpotlightPointers] = useState({
@@ -19,7 +19,7 @@ function AddSpotlight() {
         pointer1: "",
         pointer2: "",
         pointer3: "",
-        videoUpload: "",
+        imageUpload: "",
     });
 
     const location = useLocation();
@@ -39,7 +39,7 @@ function AddSpotlight() {
                     pointer3: spotlight.spotlightPointer3,
                 });
                 setCurrentId(spotlight._id);
-                setPreviewUrl(`${BASE_IMAGE_URL}${spotlight.videoUrl}`);
+                setPreviewUrl(`${BASE_IMAGE_URL}${spotlight.imageUrl}`);
             } catch (error) {
                 console.error(error);
             }
@@ -49,25 +49,25 @@ function AddSpotlight() {
     useEffect(() => {
         if (id) {
             fetchSpotlight();
-        } else if (location.state?.videoUpload) {
-            const { videoUpload: editVideo } = location.state;
-            setSpotlightheading(editVideo.altText);
-            setSpotlightcontent(editVideo.bannerText);
+        } else if (location.state?.imageUpload) {
+            const { imageUpload: editImage } = location.state;
+            setSpotlightheading(editImage.altText);
+            setSpotlightcontent(editImage.bannerText);
             setSpotlightPointers({
-                pointer1: editVideo.spotlightPointer1,
-                pointer2: editVideo.spotlightPointer2,
-                pointer3: editVideo.spotlightPointer3,
+                pointer1: editImage.spotlightPointer1,
+                pointer2: editImage.spotlightPointer2,
+                pointer3: editImage.spotlightPointer3,
             });
-            setCurrentId(editVideo._id);
-            setPreviewUrl(`${BASE_IMAGE_URL}${editVideo.imageUrl}`);
+            setCurrentId(editImage._id);
+            setPreviewUrl(`${BASE_IMAGE_URL}${editImage.imageUrl}`);
         }
     }, [id, location.state]);
 
-    const handleVideoChange = (e) => {
+    const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setVideoUpload(file);
+        setImageUpload(file);
         setPreviewUrl(URL.createObjectURL(file));
-        setErrors((prev) => ({ ...prev, videoUpload: "" })); // clear video error
+        setErrors((prev) => ({ ...prev, imageUpload: "" })); // clear image error
     };
 
     const handleTextChange = (e) => {
@@ -84,30 +84,36 @@ function AddSpotlight() {
 
     const validateForm = () => {
         const newErrors = {};
-
+    
         if (!spotlightheading) newErrors.spotlightheading = "Spotlight heading is required.";
         if (!spotlightcontent) newErrors.spotlightcontent = "Spotlight content is required.";
         if (!spotlightPointers.pointer1) newErrors.pointer1 = "Pointer 1 is required.";
         if (!spotlightPointers.pointer2) newErrors.pointer2 = "Pointer 2 is required.";
         if (!spotlightPointers.pointer3) newErrors.pointer3 = "Pointer 3 is required.";
-        if (!videoUpload) newErrors.videoUpload = "Please upload a video.";
-
+    
+        // Only require imageUpload when creating a new spotlight
+        if (!currentId && !imageUpload) {
+            newErrors.imageUpload = "Please upload an image.";
+        }
+    
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; 
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return; 
-
+        if (!validateForm()) return;
+    
         const formData = new FormData();
-        formData.append("videoUpload", videoUpload);
+        if (imageUpload) {
+            formData.append("imageUpload", imageUpload); // Only append if a new image is selected
+        }
         formData.append("spotlightheading", spotlightheading);
         formData.append("spotlightcontent", spotlightcontent);
         formData.append("spotlightPointer1", spotlightPointers.pointer1);
         formData.append("spotlightPointer2", spotlightPointers.pointer2);
         formData.append("spotlightPointer3", spotlightPointers.pointer3);
-
+    
         try {
             if (currentId) {
                 await axiosInstance.put(`/spotlights/${currentId}`, formData, {
@@ -129,7 +135,7 @@ function AddSpotlight() {
     };
 
     const resetForm = () => {
-        setVideoUpload(null);
+        setImageUpload(null);
         setSpotlightheading("");
         setSpotlightcontent("");
         setSpotlightPointers({ pointer1: "", pointer2: "", pointer3: "" });
@@ -141,7 +147,7 @@ function AddSpotlight() {
             pointer1: "",
             pointer2: "",
             pointer3: "",
-            videoUpload: "",
+            imageUpload: "",
         }); // Reset errors
     };
 
@@ -204,17 +210,17 @@ function AddSpotlight() {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="videoUpload" className="form-label">Upload Video</label>
+                    <label htmlFor="imageUpload" className="form-label">Upload Image</label>
                     <input
                         className="form-control"
                         type="file"
-                        id="videoUpload"
-                        name="video"
-                        accept="video/*"
-                        onChange={handleVideoChange}
+                        id="imageUpload"
+                        name="imageU"
+                        accept="image/*"
+                        onChange={handleImageChange}
                     />
                     {errors.videoUpload && <small className="text-danger">{errors.videoUpload}</small>}
-                    {previewUrl && <video src={previewUrl} controls className="mt-2" style={{height: "200px"}}/>}
+                    {previewUrl && <img src={previewUrl} controls className="mt-2" style={{height: "200px"}}/>}
                     {/* <div className="form-text">Please upload a video file.</div> */}
                 </div>
                 <button type="submit" className="w-auto btn btn-primary">Submit</button>
