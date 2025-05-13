@@ -193,7 +193,7 @@ const AddProjects = () => {
             )}
           </div>
           <div className="col-md-6">
-            <label htmlFor="category" className="form-label">Categorye</label>
+            <label htmlFor="category" className="form-label">Category</label>
             <select
               name="category"
               className="form-control category"
@@ -206,7 +206,8 @@ const AddProjects = () => {
             </select>
             {errors.category && <small className="text-danger">{errors.category}</small>}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
+             <label htmlFor="area" className="form-label">Add Area</label>
             {areas.map((area, index) => (
               <div className="mb-3 d-flex align-items-center" key={index}>
                 <input
@@ -221,14 +222,13 @@ const AddProjects = () => {
                   type="button"
                   className="w-auto btn btn-danger ms-2"
                   onClick={() => removeAreaField(index)}
-                  style={{marginTop: "2px"}}
                 >
-                  Remove
+                  X
                 </button>
               </div>
             ))}
-            <button type="button" className="w-auto btn btn-primary" onClick={addAreaField}>
-              Add Another Area
+            <button type="button" className="w-auto btn btn-primary m-0" onClick={addAreaField}>
+              +
             </button>
             {errors.area && <small className="text-danger d-block">{errors.area}</small>}
           </div>
@@ -260,7 +260,8 @@ const AddProjects = () => {
               {errors.altText && <small className="text-danger">{errors.altText}</small>}
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
+             <label htmlFor="location" className="form-label">Add Locations</label>
             {locations.map((location, index) => (
               <div className="mb-3 d-flex align-items-center" key={index}>
                 <input
@@ -275,14 +276,13 @@ const AddProjects = () => {
                   type="button"
                   className="w-auto btn btn-danger ms-2"
                   onClick={() => removeLocationField(index)}
-                  style={{marginTop: "2px"}}
                 >
-                  Remove
+                  X
                 </button>
               </div>
             ))}
-            <button type="button" className="w-auto btn btn-primary" onClick={addLocationField}>
-              Add Another Location
+            <button type="button" className="w-auto btn btn-primary m-0" onClick={addLocationField}>
+              +
             </button>
             {errors.location && <small className="text-danger d-block">{errors.location}</small>}
           </div>

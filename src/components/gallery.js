@@ -71,6 +71,12 @@ function Gallery() {
       width: "20%",
     },
     {
+      name: "Location",
+      selector: (row) => row.location,
+      sortable: true,
+      width: "10%",
+    },
+    {
       name: "Project Name",
       selector: (row) => row.projectName,
       sortable: true,

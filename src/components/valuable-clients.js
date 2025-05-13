@@ -83,7 +83,7 @@ function ValuableClients() {
             <tr>
               <th scope="col">Index</th>
               <th scope="col">Image</th>
-              <th scope="col">Alt Text</th>
+              <th scope="col">Name</th>
               <th scope="col">Created At</th>
               <th scope="col">Status</th> {/* New Status Column */}
               <th scope="col">Action</th>

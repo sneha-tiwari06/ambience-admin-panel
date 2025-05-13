@@ -97,6 +97,17 @@ function Projects() {
       sortable: true,
     },
     {
+      name: "Category",
+      selector: (row) => row.category,
+      sortable: true,
+    },
+    {
+      name: "Location",
+selector: (row) => row.locations.join(", "),
+
+      sortable: true,
+    },
+    {
       name: "Status",
       cell: (row) => (
         <button

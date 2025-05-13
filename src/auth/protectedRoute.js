@@ -8,7 +8,7 @@ const ProtectedRoute = () => {
 
   return isAuthenticated ? (
     <Sidebar>
-      <Outlet /> {/* Renders the nested routes */}
+      <Outlet /> 
     </Sidebar>
   ) : (
     <Navigate to="/" />
