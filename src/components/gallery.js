@@ -59,7 +59,7 @@ function Gallery() {
       name: "Index",
       selector: (row) => row.index, // Use the precomputed index
       sortable: true, // Now sorting works
-      width: "10%",
+     
     },
     {
       name: "Image",
@@ -70,32 +70,32 @@ function Gallery() {
           style={{ width: "100px" }}
         />
       ),
-      width: "20%",
+    
     },
     {
       name: "Location",
       selector: (row) => row.location,
       sortable: true,
-      width: "10%",
+     
     },
     {
       name: "Project Name",
       selector: (row) => row.projectName,
       sortable: true,
-      width: "30%",
+  
     },
     {
       name: "Action",
       cell: (row) => (
         <div className="action-btn2">
           <Link to={`/add-gallery-image/${row._id}`}>
-            <button className="w-auto btn btn-warning">Add Gallery</button>
+            <button className="w-auto btn btn-warning">Add</button>
           </Link>
           <Link to={`/project-image/${row._id}`}>
-            <button className="w-auto btn btn-primary">View Gallery</button>
+            <button className="w-auto btn btn-primary">View</button>
           </Link>
           <Link to={`/edit-gallery-image/${row._id}`}>
-            <button className="w-auto btn btn-info">Edit Gallery</button>
+            <button className="w-auto btn btn-info">Edit</button>
           </Link>
           <button
             className="w-auto btn btn-danger"
