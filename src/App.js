@@ -65,6 +65,7 @@ function App() {
             <Route path="/add-careers" element={<AddCarrers />} />
             <Route path="/edit-career/:id" element={<AddCarrers />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/edit-gallery-image/:id" element={<AddGallery />} />
             <Route path="/add-gallery" element={<AddGallery />} />
             <Route path="/add-gallery-image/:id" element={<AddGalleryImage />} />
             <Route path="/edit-gallery/:id" element={<AddGallery />} />

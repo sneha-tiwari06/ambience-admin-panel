@@ -6,8 +6,8 @@ import axiosInstance, { BASE_IMAGE_URL } from "../utils/axiosInstnace";
 function Gallery() {
   const [galleryItems, setGalleryItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); 
-  const [filteredData, setFilteredData] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Gallery() {
         const response = await axiosInstance.get("/gallery");
         const dataWithIndex = response.data.map((item, idx) => ({
           ...item,
-          index: idx + 1, 
+          index: idx + 1,
         }));
         setGalleryItems(dataWithIndex);
         setFilteredData(dataWithIndex);
@@ -34,7 +34,9 @@ function Gallery() {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
         await axiosInstance.delete(`/gallery/${id}`);
-        setGalleryItems((prevItems) => prevItems.filter((item) => item._id !== id));
+        setGalleryItems((prevItems) =>
+          prevItems.filter((item) => item._id !== id)
+        );
         alert("Gallery item deleted successfully!");
       } catch (err) {
         setError(err.message);
@@ -92,6 +94,9 @@ function Gallery() {
           <Link to={`/project-image/${row._id}`}>
             <button className="w-auto btn btn-primary">View Gallery</button>
           </Link>
+          <Link to={`/edit-gallery-image/${row._id}`}>
+            <button className="w-auto btn btn-info">Edit Gallery</button>
+          </Link>
           <button
             className="w-auto btn btn-danger"
             onClick={() => handleDelete(row._id)}
@@ -103,7 +108,7 @@ function Gallery() {
       width: "40%",
     },
   ];
- const handleSearch = (event) => {
+  const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();
     setSearchTerm(value);
     const filtered = galleryItems.filter((item) =>
@@ -134,15 +139,15 @@ function Gallery() {
         </div>
       </div>
       <div className="action-btn d-flex justify-content-end align-items-end">
-          <input
-            type="text"
-            placeholder="Search by project name"
-            value={searchTerm}
-            onChange={handleSearch}
-            className="form-control"
-            style={{ width: "300px", marginLeft: "10px" }}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Search by project name"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="form-control"
+          style={{ width: "300px", marginLeft: "10px" }}
+        />
+      </div>
       <DataTable
         columns={columns}
         data={filteredData}
